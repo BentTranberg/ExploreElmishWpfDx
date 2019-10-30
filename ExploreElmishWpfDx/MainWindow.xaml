@@ -5,11 +5,47 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ExploreElmishWpfDx"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="350" Width="600">
+    <Window.Resources>
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="VisibilityConverter" />
+        </ResourceDictionary>
+    </Window.Resources>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+            <Button Command="{Binding ShowForm1}" Content="Show form 1" />
+            <Button Command="{Binding ShowForm2}" Content="Show form 2" />
+            <Button Command="{Binding ShowCounterPane}" Content="Show counter pane" />
+            <Button Command="{Binding ShowTabsPane}" Content="Show tabs pane" />
+        </StackPanel>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
     <Grid>
-        <StackPanel>
-            <Button Command="{Binding ButtonClick}">Click me!</Button>
-            <Label Content="{Binding LabelContent}"/>
+                <Rectangle Fill="LightSteelBlue"
+                        Visibility="{Binding NotPaneVisible, Converter={StaticResource VisibilityConverter}}" />
+                <StackPanel
+                        Visibility="{Binding PaneVisible, Converter={StaticResource VisibilityConverter}}">
+                    <local:Form1
+                            DataContext="{Binding Form1}"
+                            Visibility="{Binding DataContext.Form1Visible,
+                            RelativeSource={RelativeSource AncestorType=Window},
+                            Converter={StaticResource VisibilityConverter}}" />
+                    <local:Form2
+                            DataContext="{Binding Form2}"
+                            Visibility="{Binding DataContext.Form2Visible,
+                            RelativeSource={RelativeSource AncestorType=Window},
+                            Converter={StaticResource VisibilityConverter}}" />
+                    <local:CounterPane
+                            DataContext="{Binding CounterPane}"
+                            Visibility="{Binding DataContext.CounterPaneVisible,
+                            RelativeSource={RelativeSource AncestorType=Window},
+                            Converter={StaticResource VisibilityConverter}}" />
+                    <local:TabsPane
+                            DataContext="{Binding TabsPane}"
+                            Visibility="{Binding DataContext.TabsPaneVisible,
+                            RelativeSource={RelativeSource AncestorType=Window},
+                            Converter={StaticResource VisibilityConverter}}" />
         </StackPanel>
     </Grid>
+        </ScrollViewer>
+    </DockPanel>
 </Window>

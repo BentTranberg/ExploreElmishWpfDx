@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <StackPanel>
+            <Button Command="{Binding ButtonClick}">Click me!</Button>
+            <Label Content="{Binding LabelContent}"/>
+        </StackPanel>
     </Grid>
 </Window>

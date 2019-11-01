@@ -106,6 +106,11 @@ module MainWindow =
                 TabsPane.bindings)
         ]
 
+    let designTimeModel =
+        let model = { Pane = None }
+        let dispatch = (fun () -> ())
+        ViewModel.designInstance model (bindings model dispatch)
+
     let entryPoint (_: string[], mainWindow: Window) =
         Program.mkProgram init update bindings
         |> Program.runWindowWithConfig
